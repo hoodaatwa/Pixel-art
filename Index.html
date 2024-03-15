@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>تحويل الصور إلى Pixel Art</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            
+            flex-direction: column;
+        }
+
+        input[type="file"], a {
+            border: none;
+            padding: 10px 15px;
+            background-color: #6200EE;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            outline: none;
+        }
+
+        input[type="file"]:hover, a:hover {
+            background-color: #3700B3;
+        }
+
+        a {
+            margin-top: 20px;
+            display: none; /* Initially hidden */
+        }
+
+        canvas {
+            border: 1px solid #ddd;
+            margin-top: 20px;
+        }
+        
+    </style>
+</head>
+<body>
+    <input type="file" id="imageLoader" name="imageLoader"/>
+    <label for="imageLoader"> choose the image</label>
+    <canvas id="imageCanvas"></canvas>
+    <a id="downloadLink"> choose the image</a>
+
+    <script>
+        var imageLoader = document.getElementById('imageLoader');
+        imageLoader.addEventListener('change', handleImage, false);
+        var canvas = document.getElementById('imageCanvas');
+        var ctx = canvas.getContext('2d');
+
+        function handleImage(e) {
+            var reader = new FileReader();
+            reader.onload = function(event) {
+                var img = new Image();
+                img.onload = function() {
+                    var pixelSize = 10;
+                    var scaledWidth = Math.ceil(img.width / pixelSize);
+                    var scaledHeight = Math.ceil(img.height / pixelSize);
+
+                    canvas.width = scaledWidth * pixelSize;
+                    canvas.height = scaledHeight * pixelSize;
+
+                    ctx.drawImage(img, 0, 0, scaledWidth, scaledHeight);
+
+                    var imgData = ctx.getImageData(0, 0, scaledWidth, scaledHeight);
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                    for (var y = 0; y < scaledHeight; y++) {
+                        for (var x = 0; x < scaledWidth; x++) {
+                            var i = (y * scaledWidth + x) * 4;
+                            var r = imgData.data[i];
+                            var g = imgData.data[i + 1];
+                            var b = imgData.data[i + 2];
+                            var a = imgData.data[i + 3];
+
+                            ctx.fillStyle = "rgba(" + r + "," + g + "," + b + "," + (a / 255) + ")";
+                            ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+                        }
+                    }
+
+                    var downloadLink = document.getElementById('downloadLink');
+                    downloadLink.href = canvas.toDataURL('image/png');
+                    downloadLink.download = 'pixel-art.png';
+                    downloadLink.innerHTML = 'Download';
+                    downloadLink.style.display = 'inline-block';
+                }
+                img.src = event.target.result;
+            }
+            reader.readAsDataURL(e.target.files[0]);     
+        }
+    </script>
+</body>
+</html>
