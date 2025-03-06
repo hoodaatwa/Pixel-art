@@ -1,541 +1,652 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>تحويل الصور إلى Pixel Art</title>
-
+    <title>Convert Image to Pixel Art</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
-
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500&family=Rubik+Broken+Fax&family=Rubik+Doodle+Triangles&display=swap" rel="stylesheet">
-
-
-
-
-    <!-- Material-UI styles -->
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mui/system@5.0.1/dist/mui.min.css" integrity="sha384-GLhlTQ8iKSeUcycr6i3AxSsLOp/5StETHxHjOVq9XuWqIbbVZNyQOdX+yG5bwDciF" crossorigin="anonymous">
-
-
-
-
-  <!-- Include Material-UI styles and icons -->
-
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mui/material@5.0.1/dist/material-design-icons/iconfont/material-icons.css"
-
-    integrity="sha384-rGi1CEVZxh5F2neuJb3Nm4MEWxh1OrlCcFCi5TjW60RPI+EBo3MBukk1MTtPHtah" crossorigin="anonymous">
-
-  <style>
-
-
-
-    body {
-
-            font-family: 'Roboto', sans-serif;
-
-            margin: 65px 10px 10px;
-
-            padding: 0px;
-
-            background-color: #446FAA1A;
-
-        }
-
-
-
-    #navbar {
-
-      position: fixed;
-
-      top: 0px;
-
-      left: 0;
-
-      width: 100%;
-
-      background-color: white;
-
-      padding: 10px;
-
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
-      z-index: 3;
-
-    }
-
-
-
-    #menuToggle {
-
-      cursor: pointer;
-
-      transition: transform 0.3s;
-
-      padding: 5px;
-
-      width: 20px;
-
-      box-sizing: content-box;
-
-    }
-
-
-
-    #menuIcon {
-
-      font-size: 24px;
-
-      color: #1976D2;
-
-    }
-
-
-
-    #menuIcon.close {
-
-      transform: rotate(180deg);
-
-    }
-
-
-
-    #menuOverlay {
-
-      position: fixed;
-
-      top: 0px;
-
-      left: 0;
-
-      width: 100%;
-
-      height: 100%;
-
-      background-color: rgba(0, 0, 0, 0.5);
-
-      display: none;
-
-      z-index: 2;
-
-      overflow-y: auto;
-
-    }
-
-
-
-    #repoList {
-
-      display: flex;
-
-      flex-wrap: wrap;
-
-      justify-content: space-around;
-
-      padding: 0;
-
-      max-width: 800px;
-
-      margin: 70px auto auto;
-
-    }
-
-
-
-    .repoCard {
-
-      background-color: white;
-
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
-      margin: 10px;
-
-      padding: 20px;
-
-      width: 100%;
-
-      border-radius: 8px;
-
-      transition: box-shadow 0.3s;
-
-      cursor: pointer;
-
-    }
-
-
-
-    .repoCard:hover {
-
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-
-    }
-
-
-
-    .repoTitle {
-
-      font-size: 1.5rem;
-
-      color: #1976D2;
-
-      margin-bottom: 10px;
-
-    }
-
-
-
-    .repoDescription {
-
-      color: #555;
-
-      margin-bottom: 15px;
-
-    }
-
-
-
-    .repoLink {
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: flex-start;
-
-      margin-top: 15px;
-
-    }
-
-
-
-    .repoLink a {
-
-      color: white;
-
-      text-decoration: none;
-
-      background-color: #1976D2;
-
-      padding: 10px 15px;
-
-      border-radius: 5px;
-
-      display: inline-block;
-
-      transition: background-color 0.3s;
-
-    }
-
-
-
-    .repoLink a:hover {
-
-      background-color: #1565C0;
-
-    }
-
-
-
-    .repoLink i {
-
-      margin-left: 5px;
-
-    }
-
-
-
-    .center {
-
-      color: white;
-
-      text-decoration: none;
-
-      background-color: #1976D2;
-
-      padding: 10px 15px;
-
-      border-radius: 5px;
-
-      display: inline-block;
-
-      transition: background-color 0.3s;
-
-      margin: 10px;
-
-    }
-
-  </style>
-
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Press Start 2P', cursive;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff;
+            color: #333;
+            text-align: center;
+            background-image: 
+                linear-gradient(0deg, transparent 24px, #dedede 25px, #dedede 26px, transparent 27px),
+                linear-gradient(90deg, transparent 24px, #dedede 25px, #dedede 26px, transparent 27px);
+            background-size: 32px 32px;
+        }
+
+        .container {
+            margin-top: 80px;
+            padding: 20px;
             display: flex;
-            justify-content: center;
-            
             flex-direction: column;
+            align-items: center;
         }
 
-        input[type="file"], a {
-            border: none;
-            padding: 10px 15px;
-            background-color: #6200EE;
-            color: white;
-            text-transform: uppercase;
+        h1 {
+            font-size: 20px;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 0px #87ceeb;
             letter-spacing: 1px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-size: 14px;
-            transition: background-color 0.3s ease;
+        }
+
+        .pixel-btn {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #5f9ea0;
+            color: white;
+            border: none;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 12px;
+            text-transform: uppercase;
             cursor: pointer;
-            outline: none;
+            margin: 10px;
+            box-shadow: 4px 4px 0px #2f4f4f;
+            transition: all 0.2s;
+            position: relative;
+            text-decoration: none;
         }
 
-        input[type="file"]:hover, a:hover {
-            background-color: #3700B3;
+        .pixel-btn:hover {
+            background-color: #7bbcc0;
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px #2f4f4f;
         }
 
-        a {
-            margin-top: 20px;
-            display: none; /* Initially hidden */
+        .pixel-btn:active {
+            transform: translate(4px, 4px);
+            box-shadow: none;
+        }
+
+        input[type="file"] {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .file-input-container {
+            position: relative;
+            display: inline-block;
         }
 
         canvas {
-            border: 1px solid #ddd;
+            border: 4px solid #333;
             margin-top: 20px;
+            background-color: white;
+            image-rendering: pixelated;
+            max-width: 90%;
         }
+
+        #navbar {
+            position: fixed;
+            top: 0px;
+            left: 0;
+            width: 100%;
+            background-color: #5f9ea0;
+            padding: 10px;
+            box-shadow: 0 4px 0px #2f4f4f;
+            z-index: 3;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .app-title {
+            color: white;
+            font-size: 14px;
+            margin: 0;
+            text-shadow: 2px 2px 0px #2f4f4f;
+        }
+
+        #menuToggle {
+            cursor: pointer;
+            transition: transform 0.3s;
+            padding: 5px;
+            width: 20px;
+            box-sizing: content-box;
+        }
+
+        #menuIcon {
+            font-size: 18px;
+            color: white;
+            text-shadow: 2px 2px 0px #2f4f4f;
+        }
+
+        #menuOverlay {
+            position: fixed;
+            top: 0px;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            z-index: 2;
+            overflow-y: auto;
+        }
+
+        #repoList {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 10px;
+            max-width: 800px;
+            margin: 70px auto auto;
+        }
+
+        .repoCard {
+            background-color: white;
+            border: 4px solid #333;
+            margin: 10px;
+            padding: 15px;
+            width: 100%;
+            max-width: 320px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .repoCard:hover {
+            transform: translate(2px, 2px);
+            box-shadow: -2px -2px 0px #2f4f4f;
+        }
+
+        .repoTitle {
+            font-size: 14px;
+            color: #5f9ea0;
+            margin-bottom: 10px;
+        }
+
+        .repoDescription {
+            color: #555;
+            margin-bottom: 15px;
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+        .center {
+            margin: 20px auto;
+            display: block;
+            text-align: center;
+        }
+
+        /* Options panel */
+        .options-panel {
+            background-color: #ddf1f4;
+            border: 4px solid #333;
+            padding: 15px;
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 400px;
+        }
+
+        .option-group {
+            margin: 10px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .option-label {
+            font-size: 10px;
+            margin-bottom: 5px;
+        }
+
+        input[type="range"] {
+            width: 80%;
+            margin: 10px 0;
+            -webkit-appearance: none;
+            height: 15px;
+            background: #d3d3d3;
+            outline: none;
+            border: 2px solid #333;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #5f9ea0;
+            cursor: pointer;
+            border: 2px solid #333;
+        }
+
+        /* Color palette */
+        .color-palette {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        .color-option {
+            width: 20px;
+            height: 20px;
+            margin: 3px;
+            border: 2px solid #333;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .color-option.selected {
+            border: 2px solid #ff0000;
+            transform: scale(1.2);
+            box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+        }
+
+        .pixel-value {
+            font-size: 10px;
+            margin-top: 5px;
+        }
+
+        /* Loading animation */
+        #loadingOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            z-index: 4;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pixel-loader {
+            width: 120px;
+            height: 120px;
+            position: relative;
+        }
+
+        .pixel-loader-inner {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #5f9ea0;
+            animation: pixel-loader 1.5s infinite ease-in-out;
+        }
+
+        .pixel-loader-text {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            bottom: -40px;
+            color: white;
+            font-size: 12px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .pixel-loader .p1 { top: 0; left: 0; animation-delay: 0s; }
+        .pixel-loader .p2 { top: 0; left: 25px; animation-delay: 0.1s; }
+        .pixel-loader .p3 { top: 0; left: 50px; animation-delay: 0.2s; }
+        .pixel-loader .p4 { top: 0; left: 75px; animation-delay: 0.3s; }
+        .pixel-loader .p5 { top: 0; left: 100px; animation-delay: 0.4s; }
         
+        .pixel-loader .p6 { top: 25px; left: 0; animation-delay: 0.5s; }
+        .pixel-loader .p7 { top: 25px; left: 25px; animation-delay: 0.6s; }
+        .pixel-loader .p8 { top: 25px; left: 50px; animation-delay: 0.7s; }
+        .pixel-loader .p9 { top: 25px; left: 75px; animation-delay: 0.8s; }
+        .pixel-loader .p10 { top: 25px; left: 100px; animation-delay: 0.9s; }
+        
+        .pixel-loader .p11 { top: 50px; left: 0; animation-delay: 1.0s; }
+        .pixel-loader .p12 { top: 50px; left: 25px; animation-delay: 1.1s; }
+        .pixel-loader .p13 { top: 50px; left: 50px; animation-delay: 1.2s; }
+        .pixel-loader .p14 { top: 50px; left: 75px; animation-delay: 1.3s; }
+        .pixel-loader .p15 { top: 50px; left: 100px; animation-delay: 1.4s; }
+        
+        .pixel-loader .p16 { top: 75px; left: 0; animation-delay: 1.5s; }
+        .pixel-loader .p17 { top: 75px; left: 25px; animation-delay: 1.6s; }
+        .pixel-loader .p18 { top: 75px; left: 50px; animation-delay: 1.7s; }
+        .pixel-loader .p19 { top: 75px; left: 75px; animation-delay: 1.8s; }
+        .pixel-loader .p20 { top: 75px; left: 100px; animation-delay: 1.9s; }
+        
+        .pixel-loader .p21 { top: 100px; left: 0; animation-delay: 2.0s; }
+        .pixel-loader .p22 { top: 100px; left: 25px; animation-delay: 2.1s; }
+        .pixel-loader .p23 { top: 100px; left: 50px; animation-delay: 2.2s; }
+        .pixel-loader .p24 { top: 100px; left: 75px; animation-delay: 2.3s; }
+        .pixel-loader .p25 { top: 100px; left: 100px; animation-delay: 2.4s; }
+
+        @keyframes pixel-loader {
+            0%, 100% { 
+                background-color: #5f9ea0;
+                transform: scale(1);
+            }
+            50% { 
+                background-color: #7bbcc0;
+                transform: scale(0.8);
+            }
+        }
     </style>
 </head>
 <body>
-    <input type="file" id="imageLoader" name="imageLoader"/>
-    <label for="imageLoader"> choose the image</label>
-    <canvas id="imageCanvas"></canvas>
-    <a id="downloadLink"> choose the image</a>
+    <div id="navbar">
+        <div id="menuToggle" onclick="toggleMenu()">
+            <i id="menuIcon" class="fas fa-bars"></i>
+        </div>
+        <h2 class="app-title">Pixel Art Maker</h2>
+        <div style="width: 20px;"></div> <!-- For balance -->
+    </div>
+
+    <div id="menuOverlay" onclick="toggleMenu()">
+        <div id="repoList"></div>
+    </div>
+
+    <div id="loadingOverlay">
+        <div class="pixel-loader">
+            <div class="pixel-loader-inner p1"></div>
+            <div class="pixel-loader-inner p2"></div>
+            <div class="pixel-loader-inner p3"></div>
+            <div class="pixel-loader-inner p4"></div>
+            <div class="pixel-loader-inner p5"></div>
+            
+            <div class="pixel-loader-inner p6"></div>
+            <div class="pixel-loader-inner p7"></div>
+            <div class="pixel-loader-inner p8"></div>
+            <div class="pixel-loader-inner p9"></div>
+            <div class="pixel-loader-inner p10"></div>
+            
+            <div class="pixel-loader-inner p11"></div>
+            <div class="pixel-loader-inner p12"></div>
+            <div class="pixel-loader-inner p13"></div>
+            <div class="pixel-loader-inner p14"></div>
+            <div class="pixel-loader-inner p15"></div>
+            
+            <div class="pixel-loader-inner p16"></div>
+            <div class="pixel-loader-inner p17"></div>
+            <div class="pixel-loader-inner p18"></div>
+            <div class="pixel-loader-inner p19"></div>
+            <div class="pixel-loader-inner p20"></div>
+            
+            <div class="pixel-loader-inner p21"></div>
+            <div class="pixel-loader-inner p22"></div>
+            <div class="pixel-loader-inner p23"></div>
+            <div class="pixel-loader-inner p24"></div>
+            <div class="pixel-loader-inner p25"></div>
+            
+            <div class="pixel-loader-text">PROCESSING...</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Convert Image to Pixel Art</h1>
+        
+        <div class="file-input-container">
+            <div class="pixel-btn">
+                Select Image
+                <input type="file" id="imageLoader" name="imageLoader"/>
+            </div>
+        </div>
+
+        <div class="options-panel">
+            <div class="option-group">
+                <div class="option-label">Pixel Size</div>
+                <input type="range" id="pixelSizeSlider" min="2" max="20" value="10">
+                <div class="pixel-value" id="pixelSizeValue">10px</div>
+            </div>
+            
+            <div class="option-group">
+                <div class="option-label">Color Palette</div>
+                <div class="color-palette">
+                    <div class="color-option selected" data-mode="normal" style="background-color: #ffffff;"></div>
+                    <div class="color-option" data-mode="blue" style="background-color: #5f9ea0;"></div>
+                    <div class="color-option" data-mode="green" style="background-color: #90ee90;"></div>
+                    <div class="color-option" data-mode="pink" style="background-color: #ffb6c1;"></div>
+                    <div class="color-option" data-mode="bw" style="background-color: #000000;"></div>
+                    <div class="color-option" data-mode="sepia" style="background-color: #704214;"></div>
+                    <div class="color-option" data-mode="purple" style="background-color: #9370db;"></div>
+                    <div class="color-option" data-mode="retro" style="background: linear-gradient(135deg, #8bac0f 0%, #306230 100%);"></div>
+                    <div class="color-option" data-mode="neon" style="background: linear-gradient(135deg, #ff00ff 0%, #00ffff 100%);"></div>
+                    <div class="color-option" data-mode="pastel" style="background: linear-gradient(135deg, #ffcccc 0%, #ccffcc 50%, #ccccff 100%);"></div>
+                </div>
+            </div>
+            
+            <div class="pixel-btn" onclick="processImage()">Apply Changes</div>
+        </div>
+
+        <canvas id="imageCanvas"></canvas>
+        
+        <a id="downloadLink" class="pixel-btn" style="display: none;">Download</a>
+    </div>
 
     <script>
         var imageLoader = document.getElementById('imageLoader');
         imageLoader.addEventListener('change', handleImage, false);
         var canvas = document.getElementById('imageCanvas');
         var ctx = canvas.getContext('2d');
+        var pixelSizeSlider = document.getElementById('pixelSizeSlider');
+        var pixelSizeValue = document.getElementById('pixelSizeValue');
+        var currentImg = null;
+        var colorMode = 'normal';
+        var loadingOverlay = document.getElementById('loadingOverlay');
+
+        // Set up color palette selection
+        document.querySelectorAll('.color-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove selected class from all options
+                document.querySelectorAll('.color-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Add selected class to clicked option
+                this.classList.add('selected');
+                
+                // Set color mode
+                colorMode = this.getAttribute('data-mode');
+                
+                if (currentImg) {
+                    processImage();
+                }
+            });
+        });
+
+        pixelSizeSlider.addEventListener('input', function() {
+            pixelSizeValue.textContent = this.value + 'px';
+            if (currentImg) {
+                processImage();
+            }
+        });
 
         function handleImage(e) {
             var reader = new FileReader();
             reader.onload = function(event) {
-                var img = new Image();
-                img.onload = function() {
-                    var pixelSize = 10;
-                    var scaledWidth = Math.ceil(img.width / pixelSize);
-                    var scaledHeight = Math.ceil(img.height / pixelSize);
-
-                    canvas.width = scaledWidth * pixelSize;
-                    canvas.height = scaledHeight * pixelSize;
-
-                    ctx.drawImage(img, 0, 0, scaledWidth, scaledHeight);
-
-                    var imgData = ctx.getImageData(0, 0, scaledWidth, scaledHeight);
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                    for (var y = 0; y < scaledHeight; y++) {
-                        for (var x = 0; x < scaledWidth; x++) {
-                            var i = (y * scaledWidth + x) * 4;
-                            var r = imgData.data[i];
-                            var g = imgData.data[i + 1];
-                            var b = imgData.data[i + 2];
-                            var a = imgData.data[i + 3];
-
-                            ctx.fillStyle = "rgba(" + r + "," + g + "," + b + "," + (a / 255) + ")";
-                            ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
-                        }
-                    }
-
-                    var downloadLink = document.getElementById('downloadLink');
-                    downloadLink.href = canvas.toDataURL('image/png');
-                    downloadLink.download = 'pixel-art.png';
-                    downloadLink.innerHTML = 'Download';
-                    downloadLink.style.display = 'inline-block';
+                currentImg = new Image();
+                currentImg.onload = function() {
+                    processImage();
                 }
-                img.src = event.target.result;
+                currentImg.src = event.target.result;
             }
             reader.readAsDataURL(e.target.files[0]);     
         }
-    </script>
 
+        function processImage() {
+            if (!currentImg) return;
+            
+            // Show loading animation
+            loadingOverlay.style.display = 'flex';
+            
+            // Use setTimeout to give the browser a chance to render the loading animation
+            setTimeout(() => {
+                var pixelSize = parseInt(pixelSizeSlider.value);
+                var scaledWidth = Math.ceil(currentImg.width / pixelSize);
+                var scaledHeight = Math.ceil(currentImg.height / pixelSize);
 
+                canvas.width = scaledWidth * pixelSize;
+                canvas.height = scaledHeight * pixelSize;
 
+                // First draw at lower resolution
+                var tempCanvas = document.createElement('canvas');
+                tempCanvas.width = scaledWidth;
+                tempCanvas.height = scaledHeight;
+                var tempCtx = tempCanvas.getContext('2d');
+                tempCtx.drawImage(currentImg, 0, 0, scaledWidth, scaledHeight);
 
-  <div id="navbar">
+                // Get the low-res pixel data
+                var imgData = tempCtx.getImageData(0, 0, scaledWidth, scaledHeight);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    <div id="menuToggle" onclick="toggleMenu()">
+                // Draw each pixel enlarged
+                for (var y = 0; y < scaledHeight; y++) {
+                    for (var x = 0; x < scaledWidth; x++) {
+                        var i = (y * scaledWidth + x) * 4;
+                        var r = imgData.data[i];
+                        var g = imgData.data[i + 1];
+                        var b = imgData.data[i + 2];
+                        var a = imgData.data[i + 3];
 
-      <i id="menuIcon" class="fas fa-bars"></i>
+                        // Apply color mode
+                        var pixelColor = getPixelColor(r, g, b, a);
+                        ctx.fillStyle = pixelColor;
+                        
+                        // Draw the larger pixel
+                        ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+                        
+                        // Add a subtle grid effect for that pixel art look
+                        ctx.strokeStyle = 'rgba(0,0,0,0.1)';
+                        ctx.strokeRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+                    }
+                }
 
-    </div>
-
-  </div>
-
-
-
-  <div id="menuOverlay" onclick="toggleMenu()">
-
-    <div id="repoList"></div>
-
-  </div>
-
-
-
-
-    <script>
-
-  const currentPageLocation = window.location.href;
-
-  let displayedRepos = 0; // Counter for displayed repositories
-
-
-
-  // Fetch data from GitHub API
-
-  fetch('https://api.github.com/users/hoodaatwa/repos')
-
-    .then(response => response.json())
-
-    .then(data => {
-
-      // Extract topics of the current repository
-
-      const currentRepoTopics = data
-
-        .filter(repo => repo.homepage === currentPageLocation)
-
-        .flatMap(repo => repo.topics || []);
-
-
-
-      // Create Material-UI card for each repository with the same topics
-
-      const repoList = document.getElementById('repoList');
-
-      data.forEach(repo => {
-
-        const repoTopics = repo.topics || [];
-
-
-
-        if (
-
-          displayedRepos >= 4 ||
-
-          repo.homepage === currentPageLocation ||
-
-          !repoTopics.some(topic => currentRepoTopics.includes(topic))
-
-        ) {
-
-          // Skip creating card if reached the limit, homepage matches current page location,
-
-          // or repository has no common topics
-
-          return;
-
+                var downloadLink = document.getElementById('downloadLink');
+                downloadLink.href = canvas.toDataURL('image/png');
+                downloadLink.download = 'pixel-art.png';
+                downloadLink.innerHTML = 'Download Pixel Art';
+                downloadLink.style.display = 'inline-block';
+                
+                // Hide loading animation after processing is complete
+                loadingOverlay.style.display = 'none';
+            }, 100);
         }
 
+        function getPixelColor(r, g, b, a) {
+            var brightness = (r + g + b) / 3;
+            
+            switch (colorMode) {
+                case 'blue':
+                    // Blue-tinted palette
+                    return `rgba(${Math.floor(brightness * 0.7)},${Math.floor(brightness * 0.8)},${Math.floor(brightness * 1.2)},${a/255})`;
+                case 'green':
+                    // Green-tinted palette
+                    return `rgba(${Math.floor(brightness * 0.7)},${Math.floor(brightness * 1.2)},${Math.floor(brightness * 0.7)},${a/255})`;
+                case 'pink':
+                    // Pink-tinted palette
+                    return `rgba(${Math.floor(brightness * 1.2)},${Math.floor(brightness * 0.7)},${Math.floor(brightness * 1.0)},${a/255})`;
+                case 'bw':
+                    // Black and white
+                    var bw = brightness > 127 ? 255 : 0;
+                    return `rgba(${bw},${bw},${bw},${a/255})`;
+                case 'sepia':
+                    // Sepia tone
+                    return `rgba(${Math.min(255, Math.floor(brightness * 1.2))},${Math.min(255, Math.floor(brightness * 0.9))},${Math.min(255, Math.floor(brightness * 0.7))},${a/255})`;
+                case 'purple':
+                    // Purple tone
+                    return `rgba(${Math.floor(brightness * 0.9)},${Math.floor(brightness * 0.6)},${Math.floor(brightness * 1.2)},${a/255})`;
+                case 'retro':
+                    // Retro GameBoy 4-color palette
+                    if (brightness < 64) return 'rgba(15, 56, 15, ' + (a/255) + ')';
+                    else if (brightness < 128) return 'rgba(48, 98, 48, ' + (a/255) + ')';
+                    else if (brightness < 192) return 'rgba(139, 172, 15, ' + (a/255) + ')';
+                    else return 'rgba(155, 188, 15, ' + (a/255) + ')';
+                case 'neon':
+                    // Neon colors based on brightness
+                    var hue = (brightness / 255) * 360;
+                    return `hsl(${hue}, 100%, 50%, ${a/255})`;
+                case 'pastel':
+                    // Pastel colors
+                    var hue = (brightness / 255) * 360;
+                    return `hsl(${hue}, 60%, 80%, ${a/255})`;
+                default:
+                    // Normal color
+                    return `rgba(${r},${g},${b},${a/255})`;
+            }
+        }
 
+        const currentPageLocation = window.location.href;
+        let displayedRepos = 0;
 
-        const repoCard = document.createElement('div');
+        // Fetch data from GitHub API
+        fetch('https://api.github.com/users/hoodaatwa/repos')
+            .then(response => response.json())
+            .then(data => {
+                // Extract topics of the current repository
+                const currentRepoTopics = data
+                    .filter(repo => repo.homepage === currentPageLocation)
+                    .flatMap(repo => repo.topics || []);
 
-        repoCard.classList.add('repoCard');
+                // Create card for each repository with the same topics
+                const repoList = document.getElementById('repoList');
+                data.forEach(repo => {
+                    const repoTopics = repo.topics || [];
 
-        repoCard.innerHTML = `
+                    if (
+                        displayedRepos >= 4 ||
+                        repo.homepage === currentPageLocation ||
+                        !repoTopics.some(topic => currentRepoTopics.includes(topic))
+                    ) {
+                        return;
+                    }
 
-          <div class="repoTitle">${repo.name}</div>
+                    const repoCard = document.createElement('div');
+                    repoCard.classList.add('repoCard');
+                    repoCard.innerHTML = `
+                        <div class="repoTitle">${repo.name}</div>
+                        <div class="repoDescription">${repo.description || 'No description available'}</div>
+                        <div class="pixel-btn" onclick="window.open('${repo.homepage}', '_blank')">
+                            Visit <i class="fas fa-external-link-alt"></i>
+                        </div>
+                    `;
+                    repoList.appendChild(repoCard);
 
-          <div class="repoDescription">${repo.description}</div>
+                    displayedRepos++;
+                });
 
-          <div class="repoLink">
+                // Find the "Main" repository and create a special card
+                const mainRepo = data.find(repo => repo.name.toLowerCase() === 'main');
+                if (mainRepo) {
+                    const mainRepoCard = document.createElement('div');
+                    mainRepoCard.innerHTML = `
+                        <div class="pixel-btn center" onclick="window.open('${mainRepo.homepage}', '_blank')">
+                            Go to Main Page <i class="fas fa-home"></i>
+                        </div>
+                    `;
+                    repoList.appendChild(mainRepoCard);
+                }
+            })
+            .catch(error => console.error('Error fetching data:', error));
 
-            <a href="${repo.homepage}" target="_blank">Homepage <i class="fas fa-external-link-alt"></i></a>
+        function toggleMenu() {
+            const menuOverlay = document.getElementById('menuOverlay');
+            const body = document.body;
+            const menuIcon = document.getElementById('menuIcon');
 
-          </div>
-
-        `;
-
-        repoList.appendChild(repoCard);
-
-
-
-        displayedRepos++;
-
-      });
-
-
-
-      // Find the "Main" repository and create a special card with a dynamic link
-
-      const mainRepo = data.find(repo => repo.name.toLowerCase() === 'main');
-
-      if (mainRepo) {
-
-        const mainRepoCard = document.createElement('div');
-
-
-
-        mainRepoCard.innerHTML = `
-
-          <a class="center" href="${mainRepo.homepage}" target="_blank">Go to Main Page <i class="fas fa-external-link-alt"></i></a>
-
-        `;
-
-        repoList.appendChild(mainRepoCard);
-
-      }
-
-    })
-
-    .catch(error => console.error('Error fetching data:', error));
-
-
-
-  function toggleMenu() {
-
-    const menuOverlay = document.getElementById('menuOverlay');
-
-    const body = document.body;
-
-    const menuIcon = document.getElementById('menuIcon');
-
-
-
-    if (menuOverlay.style.display === 'block') {
-
-      menuOverlay.style.display = 'none';
-
-      body.style.overflow = 'auto';
-
-      menuIcon.classList.replace('fa-times', 'fa-bars');
-
-    } else {
-
-      menuOverlay.style.display = 'block';
-
-      body.style.overflow = 'hidden';
-
-      menuIcon.classList.replace('fa-bars', 'fa-times');
-
-    }
-
-  }
-
-</script>
-
-
-
+            if (menuOverlay.style.display === 'block') {
+                menuOverlay.style.display = 'none';
+                body.style.overflow = 'auto';
+                menuIcon.classList.replace('fa-times', 'fa-bars');
+            } else {
+                menuOverlay.style.display = 'block';
+                body.style.overflow = 'hidden';
+                menuIcon.classList.replace('fa-bars', 'fa-times');
+            }
+        }
+    </script>
 </body>
-</html>
+                               </html>
